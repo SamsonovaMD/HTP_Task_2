@@ -30,15 +30,42 @@ public:
         }
     }
 
-    void insert(const T& value) {
+    
+    void insertAtBeginning(const T& value) {
         Node* newNode = new Node(value);
         if (!head) {
             head = newNode;
-        }
-        else {
+        } else {
             newNode->next = head;
             head = newNode;
         }
+    }
+
+    void insertAtEnd(const T& value) {
+        Node* newNode = new Node(value);
+        if (!head) {
+            head = newNode;
+        } else {
+            Node* current = head;
+            while (current->next) {
+                current = current->next;
+            }
+            current->next = newNode;
+        }
+    }
+
+    void insertAfter(const T& prevValue, const T& value) {
+        Node* newNode = new Node(value);
+        Node* current = head;
+        while (current) {
+            if (current->data == prevValue) {
+                newNode->next = current->next;
+                current->next = newNode;
+                return;
+            }
+            current = current->next;
+        }
+        std::cerr << "Element " << prevValue << " not found" << std::endl;
     }
 
     void remove(const T& value) {
